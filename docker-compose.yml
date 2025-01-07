@@ -5,7 +5,7 @@ services:
     image: samudrachandra/sertify:v1  # Image yang sudah Anda buat dan push ke Docker Hub
     container_name: sertify_app
     ports:
-      - "3001:3001"  # Mengarahkan port container ke port host
+      - "3000:3000"  # Mengarahkan port container ke port host
     environment:
       - NODE_ENV=production
     volumes:
