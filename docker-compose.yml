@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    image: samudrachandra/sertify:v1  # Image yang sudah Anda buat dan push ke Docker Hub
+    container_name: sertify_app
+    ports:
+      - "3000:3000"  # Mengarahkan port container ke port host
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app  # Mount direktori aplikasi ke dalam container
+    networks:
+      - app_network
+    depends_on:
+      - db  # Menunggu database siap sebelum menjalankan aplikasi
+
+  db:
+    image: mongo:latest  # Menggunakan image MongoDB
+    container_name: sertify_db
+    volumes:
+      - db_data:/data/db  # Persistent storage untuk MongoDB
+    networks:
+      - app_network
+
+volumes:
+  db_data:  # Volume untuk menyimpan data MongoDB secara persist
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge
+
